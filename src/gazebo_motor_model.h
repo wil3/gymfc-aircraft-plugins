@@ -106,6 +106,7 @@ class GazeboMotorModel : public MotorModel, public ModelPlugin {
   virtual void UpdateMotorFail();
   virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
   virtual void OnUpdate(const common::UpdateInfo & /*_info*/);
+  virtual void Reset();
 
  private:
   std::string command_sub_topic_;
