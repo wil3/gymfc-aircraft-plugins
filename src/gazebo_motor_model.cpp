@@ -181,16 +181,12 @@ void GazeboMotorModel::OnUpdate(const common::UpdateInfo& _info) {
   Publish();
 }
 void GazeboMotorModel::Reset(){
-    gzdbg << " motor reset called" << std::endl;
     joint_->Reset();
-    ref_motor_rot_vel_  = 0;
     joint_->SetVelocity(0,0);
     motor_rot_vel_ = 0;
     ref_motor_rot_vel_ = 0;
     prev_sim_time_ = 0;
     sampling_time_ = 0.01;
-    gzdbg << " Pre sim time " << prev_sim_time_ << " Sampling time " << sampling_time_ << std::endl;
-
 }
 void GazeboMotorModel::VelocityCallback(MotorCommandPtr &_cmd) {
     //gzdbg << "Motor " << motor_number_ << " Value " << _cmd->motor(motor_number_) << std::endl;
