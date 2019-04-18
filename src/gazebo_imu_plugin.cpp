@@ -50,6 +50,7 @@ void GazeboImuPlugin::OnTimeReset()
 }
 
 void GazeboImuPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
+  gzdbg << "Loading IMU sensor\n";
   // Store the pointer to the model
   model_ = _model;
   world_ = model_->GetWorld();
@@ -340,6 +341,7 @@ void GazeboImuPlugin::OnUpdate(const common::UpdateInfo& _info) {
   imu_message_.set_allocated_linear_acceleration(linear_acceleration);
   imu_message_.set_allocated_angular_velocity(angular_velocity);
 
+  //gzdbg << "Publishing IMU message\n";
   imu_pub_->Publish(imu_message_);
 }
 
