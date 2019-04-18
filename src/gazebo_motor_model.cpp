@@ -33,6 +33,7 @@ GazeboMotorModel::~GazeboMotorModel() {
 void GazeboMotorModel::InitializeParams() {}
 
 void GazeboMotorModel::Publish() {
+  //gzdbg << "Publishing ESC sensors " << motor_number_ << std::endl;
   sensor_msgs::msgs::EscSensor sensor;
   sensor.set_motor_speed(joint_->GetVelocity(0));
   sensor.set_id(motor_number_);
@@ -146,7 +147,7 @@ void GazeboMotorModel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   // simulation iteration.
   updateConnection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&GazeboMotorModel::OnUpdate, this, _1));
 
-  command_sub_ = node_handle_->Subscribe<cmd_msgs::msgs::MotorCommand>("/aircraft/command/motor", &GazeboMotorModel::VelocityCallback, this);
+  command_sub_ = node_handle_->Subscribe<cmd_msgs::msgs::MotorCommand>(command_sub_topic_, &GazeboMotorModel::VelocityCallback, this);
   //std::cout << "[gazebo_motor_model]: Subscribe to gz topic: "<< motor_failure_sub_topic_ << std::endl;
   motor_failure_sub_ = node_handle_->Subscribe<msgs::Int>(motor_failure_sub_topic_, &GazeboMotorModel::MotorFailureCallback, this);
 
@@ -155,6 +156,8 @@ void GazeboMotorModel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 
   // Create the first order filter.
   rotor_velocity_filter_.reset(new FirstOrderFilter<double>(time_constant_up_, time_constant_down_, ref_motor_rot_vel_));
+
+  gzdbg << "Loading Motor number=" << motor_number_ << " Subscribed to " << command_sub_topic_ << std::endl;
 }
 
 // Protobuf test
@@ -177,7 +180,18 @@ void GazeboMotorModel::OnUpdate(const common::UpdateInfo& _info) {
   UpdateMotorFail();
   Publish();
 }
+void GazeboMotorModel::Reset(){
+    gzdbg << " motor reset called" << std::endl;
+    joint_->Reset();
+    ref_motor_rot_vel_  = 0;
+    joint_->SetVelocity(0,0);
+    motor_rot_vel_ = 0;
+    ref_motor_rot_vel_ = 0;
+    prev_sim_time_ = 0;
+    sampling_time_ = 0.01;
+    gzdbg << " Pre sim time " << prev_sim_time_ << " Sampling time " << sampling_time_ << std::endl;
 
+}
 void GazeboMotorModel::VelocityCallback(MotorCommandPtr &_cmd) {
     //gzdbg << "Motor " << motor_number_ << " Value " << _cmd->motor(motor_number_) << std::endl;
 
