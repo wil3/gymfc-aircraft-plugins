@@ -181,15 +181,17 @@ void GazeboMotorModel::OnUpdate(const common::UpdateInfo& _info) {
   Publish();
 }
 void GazeboMotorModel::Reset(){
+    // gzdbg << "Resetting motor " << motor_number_ << std::endl;
     joint_->Reset();
     joint_->SetVelocity(0,0);
     motor_rot_vel_ = 0;
     ref_motor_rot_vel_ = 0;
     prev_sim_time_ = 0;
     sampling_time_ = 0.01;
+    rotor_velocity_filter_.reset(new FirstOrderFilter<double>(time_constant_up_, time_constant_down_, ref_motor_rot_vel_));
 }
 void GazeboMotorModel::VelocityCallback(MotorCommandPtr &_cmd) {
-    //gzdbg << "Motor " << motor_number_ << " Value " << _cmd->motor(motor_number_) << std::endl;
+  // gzdbg << "Motor " << motor_number_ << " Value " << _cmd->motor(motor_number_) << " Current velocity " << joint_->GetVelocity(0) << std::endl;
 
   if(_cmd->motor_size() < motor_number_) {
     std::cout  << "You tried to access index " << motor_number_
