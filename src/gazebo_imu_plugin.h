@@ -32,6 +32,10 @@
 
 #include "common.h"
 
+namespace angular_velocity_units {
+    static const std::string DEG_PER_SECOND = "deg/s";
+    static const std::string RAD_PER_SECOND = "rad/s";
+}
 namespace gazebo {
 //typedef const boost::shared_ptr<const sensor_msgs::msgs::Imu> ImuPtr;
 
@@ -98,7 +102,11 @@ struct ImuParameters {
 class GazeboImuPlugin : public ModelPlugin {
  public:
 
-  GazeboImuPlugin();
+  GazeboImuPlugin()
+      : ModelPlugin(),
+      velocity_prev_W_(0,0,0),
+      angular_velocity_units_(angular_velocity_units::RAD_PER_SECOND){
+      }
   ~GazeboImuPlugin();
 
   void InitializeParams();
@@ -122,6 +130,7 @@ class GazeboImuPlugin : public ModelPlugin {
   transport::PublisherPtr imu_pub_;
   std::string frame_id_;
   std::string link_name_;
+  std::string angular_velocity_units_;
 
   std::default_random_engine random_generator_;
   std::normal_distribution<double> standard_normal_distribution_;

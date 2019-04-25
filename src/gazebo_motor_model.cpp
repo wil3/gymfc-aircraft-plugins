@@ -33,13 +33,27 @@ GazeboMotorModel::~GazeboMotorModel() {
 void GazeboMotorModel::InitializeParams() {}
 
 void GazeboMotorModel::Publish() {
-  //gzdbg << "Publishing ESC sensors " << motor_number_ << std::endl;
-  sensor_msgs::msgs::EscSensor sensor;
-  sensor.set_motor_speed(joint_->GetVelocity(0));
+  if (rotor_velocity_units_.compare(rotor_velocity_units::RPM) == 0)
+  {
+      double rpms = std::abs(joint_->GetVelocity(0) * 9.5493);
+      //gzdbg << "Publishing ESC sensors " << motor_number_ << " Velocity " << rpms << std::endl;
+      sensor.set_motor_speed(rpms);
+  }
+  else 
+  {
+      gzdbg << "Convert velocity to rad/s\n";
+      sensor.set_motor_speed(std::abs(joint_->GetVelocity(0)));
+  }
+
+
+  // XXX When id was of type int64 motor speed will be reset 
+  // after id is set. 
   sensor.set_id(motor_number_);
-  sensor.set_temperature(0.0);
-  sensor.set_current(0.0);
-  sensor.set_voltage(0.0);
+
+  // TODO develope model for these
+  sensor.set_current(0);
+  sensor.set_temperature(0);
+  sensor.set_voltage(0);
   esc_sensor_pub_->Publish(sensor);
 //  gzdbg << "Sending esc sensor for motor " << motor_number_ << std::endl;
 }
@@ -139,6 +153,9 @@ void GazeboMotorModel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   getSdfParam<double>(_sdf, "timeConstantDown", time_constant_down_, time_constant_down_);
   getSdfParam<double>(_sdf, "rotorVelocitySlowdownSim", rotor_velocity_slowdown_sim_, 10);
 
+  getSdfParam<std::string>(_sdf, "rotorVelocityUnits", rotor_velocity_units_,
+                           rotor_velocity_units_);
+
   // Set the maximumForce on the joint. This is deprecated from V5 on, and the joint won't move.
 #if GAZEBO_MAJOR_VERSION < 5
   joint_->SetMaxForce(0, max_force_);
@@ -210,6 +227,7 @@ void GazeboMotorModel::UpdateForcesAndMoments() {
   }
   double real_motor_velocity = motor_rot_vel_ * rotor_velocity_slowdown_sim_;
   double force = real_motor_velocity * real_motor_velocity * motor_constant_;
+  //gzdbg << " Motor " << motor_number_ << " force=" << force << " vel=" << motor_rot_vel_ <<  std::endl;
 
   // scale down force linearly with forward speed
   // XXX this has to be modelled better
@@ -254,6 +272,7 @@ void GazeboMotorModel::UpdateForcesAndMoments() {
   parent_links.at(0)->AddRelativeTorque(drag_torque_parent_frame);
 
   ignition::math::Vector3d rolling_moment;
+  //gzdbg << "Body velocity X= " << body_velocity_perpendicular.X() << " Y= " << body_velocity_perpendicular.Y() <<  " Z=" << body_velocity_perpendicular.Z() << std::endl;
   // - \omega * \mu_1 * V_A^{\perp}
   rolling_moment = -std::abs(real_motor_velocity) * rolling_moment_coefficient_ * body_velocity_perpendicular;
   parent_links.at(0)->AddTorque(rolling_moment);

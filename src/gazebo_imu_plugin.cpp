@@ -29,12 +29,14 @@
 
 namespace gazebo {
 
+    /*  
 GazeboImuPlugin::GazeboImuPlugin()
     : ModelPlugin(),
       velocity_prev_W_(0,0,0)
 {
+    
 }
-
+*/
 GazeboImuPlugin::~GazeboImuPlugin() {
   updateConnection_->~Connection();
 }
@@ -103,6 +105,9 @@ void GazeboImuPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   getSdfParam<double>(_sdf, "accelerometerTurnOnBiasSigma",
                       imu_parameters_.accelerometer_turn_on_bias_sigma,
                       imu_parameters_.accelerometer_turn_on_bias_sigma);
+
+  getSdfParam<std::string>(_sdf, "angularVelocityUnits", angular_velocity_units_,
+                           angular_velocity_units_);
 
   #if GAZEBO_MAJOR_VERSION >= 9
   last_time_ = world_->SimTime();
@@ -306,6 +311,7 @@ void GazeboImuPlugin::OnUpdate(const common::UpdateInfo& _info) {
   Eigen::Vector3d linear_acceleration_I(acceleration_I.X(),
                                         acceleration_I.Y(),
                                         acceleration_I.Z());
+
   Eigen::Vector3d angular_velocity_I(angular_vel_I.X(),
                                      angular_vel_I.Y(),
                                      angular_vel_I.Z());
@@ -320,10 +326,19 @@ void GazeboImuPlugin::OnUpdate(const common::UpdateInfo& _info) {
 
   // Copy Eigen::Vector3d to gazebo::msgs::Vector3d
   gazebo::msgs::Vector3d* angular_velocity = new gazebo::msgs::Vector3d();
-  angular_velocity->set_x(angular_velocity_I[0]);
-  angular_velocity->set_y(angular_velocity_I[1]);
-  angular_velocity->set_z(angular_velocity_I[2]);
+  if (angular_velocity_units_.compare(angular_velocity_units::RAD_PER_SECOND) == 0)
+  {
+      angular_velocity->set_x(angular_velocity_I[0]);
+      angular_velocity->set_y(angular_velocity_I[1]);
+      angular_velocity->set_z(angular_velocity_I[2]);
+  }
+  else
+  {
+      angular_velocity->set_x(angular_velocity_I[0] * 57.2958);
+      angular_velocity->set_y(angular_velocity_I[1] * 57.2958);
+      angular_velocity->set_z(angular_velocity_I[2] * 57.2958);
 
+  }
   // Fill IMU message.
   // ADD HEaders
   // imu_message_.header.stamp.sec = current_time.sec;

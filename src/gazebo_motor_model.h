@@ -43,6 +43,10 @@ namespace turning_direction {
 const static int CCW = 1;
 const static int CW = -1;
 }
+namespace rotor_velocity_units {
+    const static std::string RPM = "rpm";
+    const static std::string RAD_PER_SECOND = "rad/s";
+}
 
 namespace gazebo {
 // Default values
@@ -91,8 +95,9 @@ class GazeboMotorModel : public MotorModel, public ModelPlugin {
         rotor_drag_coefficient_(kDefaultRotorDragCoefficient),
         rotor_velocity_slowdown_sim_(kDefaultRotorVelocitySlowdownSim),
         time_constant_down_(kDefaultTimeConstantDown),
-        time_constant_up_(kDefaultTimeConstantUp) {
-  }
+        time_constant_up_(kDefaultTimeConstantUp),
+        rotor_velocity_units_(rotor_velocity_units::RAD_PER_SECOND) {
+ }
 
   virtual ~GazeboMotorModel();
 
@@ -115,6 +120,7 @@ class GazeboMotorModel : public MotorModel, public ModelPlugin {
   std::string link_name_;
   std::string motor_speed_pub_topic_;
   std::string namespace_;
+  std::string rotor_velocity_units_;
 
   int motor_number_;
   int turning_direction_;
@@ -134,6 +140,8 @@ class GazeboMotorModel : public MotorModel, public ModelPlugin {
   double rotor_velocity_slowdown_sim_;
   double time_constant_down_;
   double time_constant_up_;
+
+  sensor_msgs::msgs::EscSensor sensor;
 
   transport::NodePtr node_handle_;
   transport::PublisherPtr esc_sensor_pub_;
