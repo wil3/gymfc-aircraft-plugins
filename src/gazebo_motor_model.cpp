@@ -41,7 +41,6 @@ void GazeboMotorModel::Publish() {
   }
   else 
   {
-      gzdbg << "Convert velocity to rad/s\n";
       sensor.set_motor_speed(std::abs(joint_->GetVelocity(0)));
   }
 
@@ -227,7 +226,7 @@ void GazeboMotorModel::UpdateForcesAndMoments() {
   }
   double real_motor_velocity = motor_rot_vel_ * rotor_velocity_slowdown_sim_;
   double force = real_motor_velocity * real_motor_velocity * motor_constant_;
-  //gzdbg << " Motor " << motor_number_ << " force=" << force << " vel=" << motor_rot_vel_ <<  std::endl;
+  gzdbg << " Motor " << motor_number_ << " force=" << force << " vel=" << motor_rot_vel_ <<  std::endl;
 
   // scale down force linearly with forward speed
   // XXX this has to be modelled better
@@ -267,9 +266,11 @@ void GazeboMotorModel::UpdateForcesAndMoments() {
   ignition::math::Pose3d pose_difference = ignitionFromGazeboMath(link_->GetWorldCoGPose() - parent_links.at(0)->GetWorldCoGPose());
 #endif
   ignition::math::Vector3d drag_torque(0, 0, -turning_direction_ * force * moment_constant_);
+  //gzdbg << "Parent " << parent_links.at(0)->GetName() <<  " Motor " << motor_number_ << " Torque " << drag_torque.Z() << std::endl;
   // Transforming the drag torque into the parent frame to handle arbitrary rotor orientations.
   ignition::math::Vector3d drag_torque_parent_frame = pose_difference.Rot().RotateVector(drag_torque);
   parent_links.at(0)->AddRelativeTorque(drag_torque_parent_frame);
+
 
   ignition::math::Vector3d rolling_moment;
   //gzdbg << "Body velocity X= " << body_velocity_perpendicular.X() << " Y= " << body_velocity_perpendicular.Y() <<  " Z=" << body_velocity_perpendicular.Z() << std::endl;
