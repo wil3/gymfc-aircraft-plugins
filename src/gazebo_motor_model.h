@@ -140,6 +140,8 @@ class GazeboMotorModel : public MotorModel, public ModelPlugin {
   double rotor_velocity_slowdown_sim_;
   double time_constant_down_;
   double time_constant_up_;
+  double current_force_ = 0;
+  double current_torque_ = 0;
 
   sensor_msgs::msgs::EscSensor sensor;
 
