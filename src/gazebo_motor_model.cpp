@@ -212,13 +212,17 @@ void GazeboMotorModel::Reset(){
     pid_.SetCmd(0.0);
     pid_.Reset();
 }
+double GazeboMotorModel::CommandTransferFunction(double x)
+{
+	return (-1490 * x *x) + (4097 * x) + 9.076;
+}
 void GazeboMotorModel::VelocityCallback(MotorCommandPtr &_cmd) {
   // gzdbg << "Motor " << motor_number_ << " Value " << _cmd->motor(motor_number_) << " Current velocity " << joint_->GetVelocity(0) << std::endl;
 
   if(_cmd->motor_size() < motor_number_) {
     std::cout  << "You tried to access index " << motor_number_
       << " of the MotorSpeed message array which is of size " << _cmd->motor_size() << "." << std::endl;
-  } else ref_motor_rot_vel_ = max_rot_velocity_ * static_cast<double>(_cmd->motor(motor_number_));
+  } else ref_motor_rot_vel_ = CommandTransferFunction(static_cast<double>(_cmd->motor(motor_number_)));
 }
 
 void GazeboMotorModel::MotorFailureCallback(const boost::shared_ptr<const msgs::Int> &fail_msg) {
@@ -287,12 +291,14 @@ void GazeboMotorModel::UpdateForcesAndMoments() {
   parent_links.at(0)->AddTorque(rolling_moment);
   // Apply the filter on the motor's velocity.
   double ref_motor_rot_vel;
-  //ref_motor_rot_vel = rotor_velocity_filter_->updateFilter(ref_motor_rot_vel_, sampling_time_);
+  ref_motor_rot_vel = rotor_velocity_filter_->updateFilter(ref_motor_rot_vel_, sampling_time_);
 
-    double err = joint_->GetVelocity(0) - turning_direction_ * ref_motor_rot_vel_ / rotor_velocity_slowdown_sim_;
-    double rotorForce = pid_.Update(err, sampling_time_);
-    joint_->SetForce(0, rotorForce);
-    gzdbg << "rotor " << joint_->GetName() << " : " << rotorForce << "\n";
+	double err = joint_->GetVelocity(0) - turning_direction_ * ref_motor_rot_vel / rotor_velocity_slowdown_sim_;
+	double rotorForce = pid_.Update(err, sampling_time_);
+
+	joint_->SetForce(0, rotorForce);
+	//gzdbg << "rotor " << joint_->GetName() << " : " << rotorForce <<  "\n";
+  //joint_->SetVelocity(0, turning_direction_ * ref_motor_rot_vel / rotor_velocity_slowdown_sim_);
 }
 
 void GazeboMotorModel::UpdateMotorFail() {
