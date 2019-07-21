@@ -54,11 +54,11 @@ void GazeboMotorModel::Publish() {
   sensor.set_temperature(0);
   sensor.set_voltage(0);
 
-  sensor.set_force(0);
-  sensor.set_torque(0);
+  sensor.set_force(current_force_);
+  sensor.set_torque(current_torque_);
 
   esc_sensor_pub_->Publish(sensor);
-  gzdbg << "Sending esc sensor for motor " << motor_number_ << std::endl;
+  //gzdbg << "Sending esc sensor for motor " << motor_number_ << std::endl;
 }
 
 void GazeboMotorModel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
