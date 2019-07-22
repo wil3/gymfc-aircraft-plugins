@@ -114,7 +114,31 @@ void GazeboMotorModel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   {
     use_pid_ = false;
   }
+  if (_sdf->HasElement("escTransferFunction"))
+  {
+    sdf::ElementPtr tf = _sdf->GetElement("escTransferFunction");
+    for (int i=0; i < 3; i++)
+    {
+        esc_transfer_function_coeff_[i] = 0;
+    }
+    if (tf->HasElement("term1Coefficient"))
+    {
+        esc_transfer_function_coeff_[0] = tf->Get<double>("term1Coefficient");
+    }
+    if (tf->HasElement("term2Coefficient"))
+    {
+        esc_transfer_function_coeff_[1] = tf->Get<double>("term2Coefficient");
+    }
+    if (tf->HasElement("term3Coefficient"))
+    {
+        esc_transfer_function_coeff_[2] = tf->Get<double>("term3Coefficient");
+    }
 
+  } else {
+      esc_transfer_function_coeff_[0] = 0;
+      esc_transfer_function_coeff_[1] = 1;
+      esc_transfer_function_coeff_[2] = 0;
+  }
   if (_sdf->HasElement("linkName"))
     link_name_ = _sdf->GetElement("linkName")->Get<std::string>();
   else
@@ -214,7 +238,7 @@ void GazeboMotorModel::Reset(){
 }
 double GazeboMotorModel::CommandTransferFunction(double x)
 {
-	return (-1490 * x *x) + (4097 * x) + 9.076;
+    return (esc_transfer_function_coeff_[0] * x * x) + (esc_transfer_function_coeff_[1] * x) + esc_transfer_function_coeff_[2];
 }
 void GazeboMotorModel::VelocityCallback(MotorCommandPtr &_cmd) {
   // gzdbg << "Motor " << motor_number_ << " Value " << _cmd->motor(motor_number_) << " Current velocity " << joint_->GetVelocity(0) << std::endl;

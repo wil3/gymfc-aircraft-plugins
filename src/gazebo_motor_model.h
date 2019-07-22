@@ -143,6 +143,8 @@ class GazeboMotorModel : public MotorModel, public ModelPlugin {
   double time_constant_up_;
   double current_force_ = 0;
   double current_torque_ = 0;
+  double esc_transfer_function_coeff_[3]; // Max 3 terms
+
 
   sensor_msgs::msgs::EscSensor sensor;
 
