@@ -317,12 +317,18 @@ void GazeboMotorModel::UpdateForcesAndMoments() {
   double ref_motor_rot_vel;
   ref_motor_rot_vel = rotor_velocity_filter_->updateFilter(ref_motor_rot_vel_, sampling_time_);
 
-	double err = joint_->GetVelocity(0) - turning_direction_ * ref_motor_rot_vel_ / rotor_velocity_slowdown_sim_;
-	double rotorForce = pid_.Update(err, sampling_time_);
+  if (use_pid_)
+  {  
+    double err = joint_->GetVelocity(0) - turning_direction_ * ref_motor_rot_vel_ / rotor_velocity_slowdown_sim_;
+    double rotorForce = pid_.Update(err, sampling_time_);
 
-	joint_->SetForce(0, rotorForce);
+    joint_->SetForce(0, rotorForce);
 	//gzdbg << "rotor " << joint_->GetName() << " : " << rotorForce <<  "\n";
-  //joint_->SetVelocity(0, turning_direction_ * ref_motor_rot_vel / rotor_velocity_slowdown_sim_);
+  }
+  else
+  {
+    joint_->SetVelocity(0, turning_direction_ * ref_motor_rot_vel / rotor_velocity_slowdown_sim_);
+  }
 }
 
 void GazeboMotorModel::UpdateMotorFail() {
