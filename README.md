@@ -32,8 +32,9 @@ Changes from PX4:
 * [SDF Format](http://sdformat.org/spec)
 
 ## Current make results
-```
+
 cuda@cuda:~/workspace/aircraft-plugins-new/build$ make
+```
 [ 62%] Built target sensor_msgs
 [ 75%] Built target control_msgs
 [ 83%] Built target gazebo_motor_model
