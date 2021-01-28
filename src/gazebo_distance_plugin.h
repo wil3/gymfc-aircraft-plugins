@@ -32,8 +32,8 @@
 #include <Eigen/Core>
 
 
-namespace ground_distance_units {
-    static const std::string METER = "meter";
+namespace ground_distance_units{
+    static const std::string METERS = "m" ;
     
 }
 namespace gazebo {
@@ -59,8 +59,8 @@ class GazeboDistancePlugin : public ModelPlugin {
 
   GazeboDistancePlugin()
       : ModelPlugin(),
-      ground_distance_W_(0),
-      ground_distance_units_(ground_distance_units::METER){
+      ground_distance_W_(0.0),
+      ground_distance_units_(ground_distance_units::METERS){
       }
   ~GazeboDistancePlugin();
 
@@ -99,10 +99,9 @@ class GazeboDistancePlugin : public ModelPlugin {
 
   sensor_msgs::msgs::Distance distance_message_;
 
-  ignition::math::Vector3d gravity_W_;
-  ignition::math::Vector3d ground_distance_W_;
+  
+  ignition::math::Temperature ground_distance_W_;
   DistanceParameters distance_parameters_;
-
   uint64_t seq_ = 0;
 };
 }

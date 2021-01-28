@@ -4,6 +4,7 @@ import "Float.proto";
 
 message Distance
 {
-   required float  Ground_distance   = 1;
+   required float ground_distance   = 1;
+   required int64 time_usec = 2;
 }
 
