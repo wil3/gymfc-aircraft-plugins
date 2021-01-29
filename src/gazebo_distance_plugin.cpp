@@ -19,8 +19,6 @@
  */
 
 #include "gazebo_distance_plugin.h"
-//#include "gazebo_imu_plugin.h"
-
 #include <chrono>
 #include <cmath>
 #include <iostream>
@@ -87,8 +85,6 @@ void GazeboDistancePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) 
                       distance_parameters_.Max_Range,
                       distance_parameters_.Max_Range);
 
-  getSdfParam<std::string>(_sdf, "groundDistanceUnit", ground_distance_units_,
-                           ground_distance_units_);
 
   #if GAZEBO_MAJOR_VERSION >= 9
   last_time_ = world_->SimTime();
@@ -104,24 +100,11 @@ void GazeboDistancePlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) 
 
   this->resetEvent_ = 
       event::Events::ConnectTimeReset(
-              boost::bind(&GazeboDistancePlugin::OnTimeReset, this));
+      //   (height);
+     boost::bind(&GazeboDistancePlugin::OnTimeReset, this));
 
   // Specify queue limit and rate, make this configurable
-  distance_pub_ = node_handle_->Advertise<sensor_msgs::msgs::Distance>("/aircraft/sensor/distance");
-
-
-
-
-
-
-
-  // Fill imu message.
-  // imu_message_.header.frame_id = frame_id_; TODO Add header
-  // We assume uncorrelated noise on the 3 channels -> only set diagonal
-  // elements. Only the broadband noise component is considered, specified as a
-  // continuous-time density (two-sided spectrum); not the true covariance of
-  // the measurements.
-  // Angular velocity measurement covariance.
+  distance_pub_ = node_handle_->Advertise<sensor_msgs::msgs::Distance>(distance_topic_);
 
 }
 
@@ -142,26 +125,13 @@ void GazeboDistancePlugin::OnUpdate(const common::UpdateInfo& _info) {
   ignition::math::Pose3d T_W_I = ignitionFromGazeboMath(link_->GetWorldPose()); //TODO(burrimi): Check tf.
 #endif
 
-  ignition::math::Vector3 position = T_W_I.Pos();
+  ignition::math::Vector3d position = T_W_I.Pos();
   
-  height = set_h(position.Z())
+  float height = position.Z();
 
-  // Fill IMU message.
-  // ADD HEaders
-  // imu_message_.header.stamp.sec = current_time.sec;
-  // imu_message_.header.stamp.nsec = current_time.nsec;
-
-  // TODO(burrimi): Add orientation estimator.
-  // imu_message_.orientation.w = 1;
-  // imu_message_.orientation.x = 0;
-  // imu_message_.orientation.y = 0;
-  // imu_message_.orientation.z = 0;
   distance_message_.set_time_usec(_info.simTime.sec * 1000000 + _info.simTime.nsec / 1000);
-  distance_message_.set_seq(seq_++);
-
-
-  distance_message_.set_has_ground_distance(height);
-  //gzdbg << "Publishing IMU message\n";
+  
+  distance_message_.set_ground_distance(height);
   distance_pub_->Publish(distance_message_);
 }
 

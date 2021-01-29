@@ -32,16 +32,15 @@
 #include <Eigen/Core>
 
 
-namespace ground_distance_units {
-    static const std::string METER = "meter";
-    
+namespace ground_distance_units{
+    static const std::string METERS="m";    
 }
+
 namespace gazebo {
 //typedef const boost::shared_ptr<const sensor_msgs::msgs::Distance> Distanceptr;
 
 // Default values for use with ADIS16448 IMU
-static constexpr double kDefaultAdisMaxRange =
-    20.0;
+static constexpr double kDefaultAdisMaxRange=20.0;
 
 static const std::string kDefaultDistanceTopic = "Distance";
 
@@ -59,8 +58,8 @@ class GazeboDistancePlugin : public ModelPlugin {
 
   GazeboDistancePlugin()
       : ModelPlugin(),
-      ground_distance_W_(0),
-      ground_distance_units_(ground_distance_units::METER){
+      ground_distance_W_(0.0),
+      ground_distance_units_(ground_distance_units::METERS){
       }
   ~GazeboDistancePlugin();
 
@@ -98,11 +97,8 @@ class GazeboDistancePlugin : public ModelPlugin {
   common::Time last_time_;
 
   sensor_msgs::msgs::Distance distance_message_;
-
-  ignition::math::Vector3d gravity_W_;
-  ignition::math::Vector3d ground_distance_W_;
+  ignition::math::Temperature ground_distance_W_;
   DistanceParameters distance_parameters_;
-
   uint64_t seq_ = 0;
 };
 }
