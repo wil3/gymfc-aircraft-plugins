@@ -1,0 +1,121 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CCW	gazebo_motor_model.h	/^const static int CCW = 1;$/;"	m	namespace:turning_direction
+CW	gazebo_motor_model.h	/^const static int CW = -1;$/;"	m	namespace:turning_direction
+CommandMotorSpeedPtr	gazebo_motor_model.h	/^typedef const boost::shared_ptr<const cmd_msgs::msgs::CommandMotorSpeed> CommandMotorSpeedPtr;$/;"	t	namespace:gazebo
+GazeboImuPlugin	gazebo_imu_plugin.cpp	/^GazeboImuPlugin::GazeboImuPlugin()$/;"	f	class:gazebo::GazeboImuPlugin
+GazeboImuPlugin	gazebo_imu_plugin.h	/^class GazeboImuPlugin : public ModelPlugin {$/;"	c	namespace:gazebo
+GazeboMotorModel	gazebo_motor_model.h	/^  GazeboMotorModel()$/;"	f	class:gazebo::GazeboMotorModel
+GazeboMotorModel	gazebo_motor_model.h	/^class GazeboMotorModel : public MotorModel, public ModelPlugin {$/;"	c	namespace:gazebo
+ImuParameters	gazebo_imu_plugin.h	/^  ImuParameters()$/;"	f	struct:gazebo::ImuParameters
+ImuParameters	gazebo_imu_plugin.h	/^struct ImuParameters {$/;"	s	namespace:gazebo
+InitializeParams	gazebo_motor_model.cpp	/^void GazeboMotorModel::InitializeParams() {}$/;"	f	class:gazebo::GazeboMotorModel
+Load	gazebo_imu_plugin.cpp	/^void GazeboImuPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {$/;"	f	class:gazebo::GazeboImuPlugin
+Load	gazebo_motor_model.cpp	/^void GazeboMotorModel::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {$/;"	f	class:gazebo::GazeboMotorModel
+MotorFailureCallback	gazebo_motor_model.cpp	/^void GazeboMotorModel::MotorFailureCallback(const boost::shared_ptr<const msgs::Int> &fail_msg) {$/;"	f	class:gazebo::GazeboMotorModel
+OnUpdate	gazebo_imu_plugin.cpp	/^void GazeboImuPlugin::OnUpdate(const common::UpdateInfo& _info) {$/;"	f	class:gazebo::GazeboImuPlugin
+OnUpdate	gazebo_motor_model.cpp	/^void GazeboMotorModel::OnUpdate(const common::UpdateInfo& _info) {$/;"	f	class:gazebo::GazeboMotorModel
+Publish	gazebo_motor_model.cpp	/^void GazeboMotorModel::Publish() {$/;"	f	class:gazebo::GazeboMotorModel
+UpdateForcesAndMoments	gazebo_motor_model.cpp	/^void GazeboMotorModel::UpdateForcesAndMoments() {$/;"	f	class:gazebo::GazeboMotorModel
+UpdateMotorFail	gazebo_motor_model.cpp	/^void GazeboMotorModel::UpdateMotorFail() {$/;"	f	class:gazebo::GazeboMotorModel
+VelocityCallback	gazebo_motor_model.cpp	/^void GazeboMotorModel::VelocityCallback(CommandMotorSpeedPtr &rot_velocities) {$/;"	f	class:gazebo::GazeboMotorModel
+accelerometer_bias_	gazebo_imu_plugin.h	/^  Eigen::Vector3d accelerometer_bias_;$/;"	m	class:gazebo::GazeboImuPlugin
+accelerometer_bias_correlation_time	gazebo_imu_plugin.h	/^  double accelerometer_bias_correlation_time;$/;"	m	struct:gazebo::ImuParameters
+accelerometer_noise_density	gazebo_imu_plugin.h	/^  double accelerometer_noise_density;$/;"	m	struct:gazebo::ImuParameters
+accelerometer_random_walk	gazebo_imu_plugin.h	/^  double accelerometer_random_walk;$/;"	m	struct:gazebo::ImuParameters
+accelerometer_turn_on_bias_	gazebo_imu_plugin.h	/^  Eigen::Vector3d accelerometer_turn_on_bias_;$/;"	m	class:gazebo::GazeboImuPlugin
+accelerometer_turn_on_bias_sigma	gazebo_imu_plugin.h	/^  double accelerometer_turn_on_bias_sigma;$/;"	m	struct:gazebo::ImuParameters
+addNoise	gazebo_imu_plugin.cpp	/^void GazeboImuPlugin::addNoise(Eigen::Vector3d* linear_acceleration,$/;"	f	class:gazebo::GazeboImuPlugin
+callback_queue_thread_	gazebo_motor_model.h	/^  boost::thread callback_queue_thread_;$/;"	m	class:gazebo::GazeboMotorModel
+command_sub_	gazebo_motor_model.h	/^  transport::SubscriberPtr command_sub_;$/;"	m	class:gazebo::GazeboMotorModel
+command_sub_topic_	gazebo_motor_model.h	/^  std::string command_sub_topic_;$/;"	m	class:gazebo::GazeboMotorModel
+frame_id_	gazebo_imu_plugin.h	/^  std::string frame_id_;$/;"	m	class:gazebo::GazeboImuPlugin
+gazebo	gazebo_imu_plugin.cpp	/^namespace gazebo {$/;"	n	file:
+gazebo	gazebo_imu_plugin.h	/^namespace gazebo {$/;"	n
+gazebo	gazebo_motor_model.cpp	/^namespace gazebo {$/;"	n	file:
+gazebo	gazebo_motor_model.h	/^namespace gazebo {$/;"	n
+gravity_W_	gazebo_imu_plugin.h	/^  ignition::math::Vector3d gravity_W_;$/;"	m	class:gazebo::GazeboImuPlugin
+gravity_magnitude	gazebo_imu_plugin.h	/^  double gravity_magnitude;$/;"	m	struct:gazebo::ImuParameters
+gyroscope_bias_	gazebo_imu_plugin.h	/^  Eigen::Vector3d gyroscope_bias_;$/;"	m	class:gazebo::GazeboImuPlugin
+gyroscope_bias_correlation_time	gazebo_imu_plugin.h	/^  double gyroscope_bias_correlation_time;$/;"	m	struct:gazebo::ImuParameters
+gyroscope_noise_density	gazebo_imu_plugin.h	/^  double gyroscope_noise_density;$/;"	m	struct:gazebo::ImuParameters
+gyroscope_random_walk	gazebo_imu_plugin.h	/^  double gyroscope_random_walk;$/;"	m	struct:gazebo::ImuParameters
+gyroscope_turn_on_bias_	gazebo_imu_plugin.h	/^  Eigen::Vector3d gyroscope_turn_on_bias_;$/;"	m	class:gazebo::GazeboImuPlugin
+gyroscope_turn_on_bias_sigma	gazebo_imu_plugin.h	/^  double gyroscope_turn_on_bias_sigma;$/;"	m	struct:gazebo::ImuParameters
+imu_message_	gazebo_imu_plugin.h	/^  sensor_msgs::msgs::Imu imu_message_;$/;"	m	class:gazebo::GazeboImuPlugin
+imu_parameters_	gazebo_imu_plugin.h	/^  ImuParameters imu_parameters_;$/;"	m	class:gazebo::GazeboImuPlugin
+imu_pub_	gazebo_imu_plugin.h	/^  transport::PublisherPtr imu_pub_;$/;"	m	class:gazebo::GazeboImuPlugin
+imu_topic_	gazebo_imu_plugin.h	/^  std::string imu_topic_;$/;"	m	class:gazebo::GazeboImuPlugin
+joint_	gazebo_motor_model.h	/^  physics::JointPtr joint_;$/;"	m	class:gazebo::GazeboMotorModel
+joint_name_	gazebo_motor_model.h	/^  std::string joint_name_;$/;"	m	class:gazebo::GazeboMotorModel
+kDefaulMaxRotVelocity	gazebo_motor_model.h	/^static constexpr double kDefaulMaxRotVelocity = 838.0;$/;"	m	namespace:gazebo
+kDefaultAdisAccelerometerBiasCorrelationTime	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisAccelerometerBiasCorrelationTime =$/;"	m	namespace:gazebo
+kDefaultAdisAccelerometerNoiseDensity	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisAccelerometerNoiseDensity =$/;"	m	namespace:gazebo
+kDefaultAdisAccelerometerRandomWalk	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisAccelerometerRandomWalk =$/;"	m	namespace:gazebo
+kDefaultAdisAccelerometerTurnOnBiasSigma	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisAccelerometerTurnOnBiasSigma =$/;"	m	namespace:gazebo
+kDefaultAdisGyroscopeBiasCorrelationTime	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisGyroscopeBiasCorrelationTime =$/;"	m	namespace:gazebo
+kDefaultAdisGyroscopeNoiseDensity	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisGyroscopeNoiseDensity =$/;"	m	namespace:gazebo
+kDefaultAdisGyroscopeRandomWalk	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisGyroscopeRandomWalk =$/;"	m	namespace:gazebo
+kDefaultAdisGyroscopeTurnOnBiasSigma	gazebo_imu_plugin.h	/^static constexpr double kDefaultAdisGyroscopeTurnOnBiasSigma =$/;"	m	namespace:gazebo
+kDefaultCommandSubTopic	gazebo_motor_model.h	/^static const std::string kDefaultCommandSubTopic = "\/gazebo\/command\/motor_speed";$/;"	m	namespace:gazebo
+kDefaultGravityMagnitude	gazebo_imu_plugin.h	/^static constexpr double kDefaultGravityMagnitude = 9.8068;$/;"	m	namespace:gazebo
+kDefaultImuTopic	gazebo_imu_plugin.h	/^static const std::string kDefaultImuTopic = "imu";$/;"	m	namespace:gazebo
+kDefaultMaxForce	gazebo_motor_model.h	/^static constexpr double kDefaultMaxForce = std::numeric_limits<double>::max();$/;"	m	namespace:gazebo
+kDefaultMomentConstant	gazebo_motor_model.h	/^static constexpr double kDefaultMomentConstant = 0.016;$/;"	m	namespace:gazebo
+kDefaultMotorConstant	gazebo_motor_model.h	/^static constexpr double kDefaultMotorConstant = 8.54858e-06;$/;"	m	namespace:gazebo
+kDefaultMotorFailureNumSubTopic	gazebo_motor_model.h	/^static const std::string kDefaultMotorFailureNumSubTopic = "\/gazebo\/motor_failure_num";$/;"	m	namespace:gazebo
+kDefaultMotorVelocityPubTopic	gazebo_motor_model.h	/^static const std::string kDefaultMotorVelocityPubTopic = "\/motor_speed";$/;"	m	namespace:gazebo
+kDefaultNamespace	gazebo_motor_model.h	/^static const std::string kDefaultNamespace = "";$/;"	m	namespace:gazebo
+kDefaultRollingMomentCoefficient	gazebo_motor_model.h	/^static constexpr double kDefaultRollingMomentCoefficient = 1.0e-6;$/;"	m	namespace:gazebo
+kDefaultRotorDragCoefficient	gazebo_motor_model.h	/^static constexpr double kDefaultRotorDragCoefficient = 1.0e-4;$/;"	m	namespace:gazebo
+kDefaultRotorVelocitySlowdownSim	gazebo_motor_model.h	/^static constexpr double kDefaultRotorVelocitySlowdownSim = 10.0;$/;"	m	namespace:gazebo
+kDefaultTimeConstantDown	gazebo_motor_model.h	/^static constexpr double kDefaultTimeConstantDown = 1.0 \/ 40.0;$/;"	m	namespace:gazebo
+kDefaultTimeConstantUp	gazebo_motor_model.h	/^static constexpr double kDefaultTimeConstantUp = 1.0 \/ 80.0;$/;"	m	namespace:gazebo
+last_time_	gazebo_imu_plugin.h	/^  common::Time last_time_;$/;"	m	class:gazebo::GazeboImuPlugin
+link_	gazebo_imu_plugin.h	/^  physics::LinkPtr link_;$/;"	m	class:gazebo::GazeboImuPlugin
+link_	gazebo_motor_model.h	/^  physics::LinkPtr link_;$/;"	m	class:gazebo::GazeboMotorModel
+link_name_	gazebo_imu_plugin.h	/^  std::string link_name_;$/;"	m	class:gazebo::GazeboImuPlugin
+link_name_	gazebo_motor_model.h	/^  std::string link_name_;$/;"	m	class:gazebo::GazeboMotorModel
+max_force_	gazebo_motor_model.h	/^  double max_force_;$/;"	m	class:gazebo::GazeboMotorModel
+max_rot_velocity_	gazebo_motor_model.h	/^  double max_rot_velocity_;$/;"	m	class:gazebo::GazeboMotorModel
+model_	gazebo_imu_plugin.h	/^  physics::ModelPtr model_;$/;"	m	class:gazebo::GazeboImuPlugin
+model_	gazebo_motor_model.h	/^  physics::ModelPtr model_;$/;"	m	class:gazebo::GazeboMotorModel
+moment_constant_	gazebo_motor_model.h	/^  double moment_constant_;$/;"	m	class:gazebo::GazeboMotorModel
+motor_Failure_Number_	gazebo_motor_model.h	/^  int motor_Failure_Number_; \/*!< motor_Failure_Number is (motor_number_ + 1) as (0) is considered no_fail. Publish accordingly *\/$/;"	m	class:gazebo::GazeboMotorModel
+motor_constant_	gazebo_motor_model.h	/^  double motor_constant_;$/;"	m	class:gazebo::GazeboMotorModel
+motor_failure_sub_	gazebo_motor_model.h	/^  transport::SubscriberPtr motor_failure_sub_; \/*!< Subscribing to motor_failure_sub_topic_; receiving motor number to fail, as an integer *\/$/;"	m	class:gazebo::GazeboMotorModel
+motor_failure_sub_topic_	gazebo_motor_model.h	/^  std::string motor_failure_sub_topic_;$/;"	m	class:gazebo::GazeboMotorModel
+motor_number_	gazebo_motor_model.h	/^  int motor_number_;$/;"	m	class:gazebo::GazeboMotorModel
+motor_speed_pub_topic_	gazebo_motor_model.h	/^  std::string motor_speed_pub_topic_;$/;"	m	class:gazebo::GazeboMotorModel
+motor_velocity_pub_	gazebo_motor_model.h	/^  transport::PublisherPtr motor_velocity_pub_;$/;"	m	class:gazebo::GazeboMotorModel
+namespace_	gazebo_imu_plugin.h	/^  std::string namespace_;$/;"	m	class:gazebo::GazeboImuPlugin
+namespace_	gazebo_motor_model.h	/^  std::string namespace_;$/;"	m	class:gazebo::GazeboMotorModel
+node_handle_	gazebo_imu_plugin.h	/^  transport::NodePtr node_handle_;$/;"	m	class:gazebo::GazeboImuPlugin
+node_handle_	gazebo_motor_model.h	/^  transport::NodePtr node_handle_;$/;"	m	class:gazebo::GazeboMotorModel
+pid_	gazebo_motor_model.h	/^  common::PID pid_;$/;"	m	class:gazebo::GazeboMotorModel
+random_generator_	gazebo_imu_plugin.h	/^  std::default_random_engine random_generator_;$/;"	m	class:gazebo::GazeboImuPlugin
+ref_motor_rot_vel_	gazebo_motor_model.h	/^  double ref_motor_rot_vel_;$/;"	m	class:gazebo::GazeboMotorModel
+rolling_moment_coefficient_	gazebo_motor_model.h	/^  double rolling_moment_coefficient_;$/;"	m	class:gazebo::GazeboMotorModel
+rotor_drag_coefficient_	gazebo_motor_model.h	/^  double rotor_drag_coefficient_;$/;"	m	class:gazebo::GazeboMotorModel
+rotor_velocity_filter_	gazebo_motor_model.h	/^  std::unique_ptr<FirstOrderFilter<double>>  rotor_velocity_filter_;$/;"	m	class:gazebo::GazeboMotorModel
+rotor_velocity_slowdown_sim_	gazebo_motor_model.h	/^  double rotor_velocity_slowdown_sim_;$/;"	m	class:gazebo::GazeboMotorModel
+screen_msg_flag	gazebo_motor_model.h	/^  int screen_msg_flag = 1;$/;"	m	class:gazebo::GazeboMotorModel
+seq_	gazebo_imu_plugin.h	/^  uint64_t seq_ = 0;$/;"	m	class:gazebo::GazeboImuPlugin
+standard_normal_distribution_	gazebo_imu_plugin.h	/^  std::normal_distribution<double> standard_normal_distribution_;$/;"	m	class:gazebo::GazeboImuPlugin
+time_constant_down_	gazebo_motor_model.h	/^  double time_constant_down_;$/;"	m	class:gazebo::GazeboMotorModel
+time_constant_up_	gazebo_motor_model.h	/^  double time_constant_up_;$/;"	m	class:gazebo::GazeboMotorModel
+tmp_motor_num	gazebo_motor_model.h	/^  int tmp_motor_num; \/\/ A temporary variable used to print msg$/;"	m	class:gazebo::GazeboMotorModel
+turning_direction	gazebo_motor_model.h	/^namespace turning_direction {$/;"	n
+turning_direction_	gazebo_motor_model.h	/^  int turning_direction_;$/;"	m	class:gazebo::GazeboMotorModel
+turning_velocity_msg_	gazebo_motor_model.h	/^  std_msgs::msgs::Float turning_velocity_msg_;$/;"	m	class:gazebo::GazeboMotorModel
+updateConnection_	gazebo_imu_plugin.h	/^  event::ConnectionPtr updateConnection_;$/;"	m	class:gazebo::GazeboImuPlugin
+updateConnection_	gazebo_motor_model.h	/^  event::ConnectionPtr updateConnection_;$/;"	m	class:gazebo::GazeboMotorModel
+use_pid_	gazebo_motor_model.h	/^  bool use_pid_;$/;"	m	class:gazebo::GazeboMotorModel
+velocity_prev_W_	gazebo_imu_plugin.h	/^  ignition::math::Vector3d velocity_prev_W_;$/;"	m	class:gazebo::GazeboImuPlugin
+world_	gazebo_imu_plugin.h	/^  physics::WorldPtr world_;$/;"	m	class:gazebo::GazeboImuPlugin
+~GazeboImuPlugin	gazebo_imu_plugin.cpp	/^GazeboImuPlugin::~GazeboImuPlugin() {$/;"	f	class:gazebo::GazeboImuPlugin
+~GazeboMotorModel	gazebo_motor_model.cpp	/^GazeboMotorModel::~GazeboMotorModel() {$/;"	f	class:gazebo::GazeboMotorModel
