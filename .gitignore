@@ -8,3 +8,8 @@ Makefile
 *.cmake
 CMakeCache.txt
 **/CMakeFiles/*
+src/Icon
+src/Icon
+.DS_Store
+include/rotors_model/Icon
+include/rotors_model/Icon
