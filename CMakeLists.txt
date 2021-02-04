@@ -74,6 +74,7 @@ set(sensor_msgs
   msgs/Imu.proto
   msgs/MotorSpeed.proto
   msgs/EscSensor.proto
+  msgs/Distance.proto
   ${PROTOBUF_IMPORT_DIRS}/vector3d.proto
   ${PROTOBUF_IMPORT_DIRS}/quaternion.proto
   )
@@ -92,10 +93,12 @@ link_libraries(control_msgs sensor_msgs)
 
 add_library(gazebo_motor_model SHARED src/gazebo_motor_model.cpp)
 add_library(gazebo_imu_plugin SHARED src/gazebo_imu_plugin.cpp)
+add_library(gazebo_distance_plugin SHARED src/gazebo_distance_plugin.cpp)
 
 set(plugins
     gazebo_motor_model
     gazebo_imu_plugin
+    gazebo_distance_plugin
     )
 foreach(plugin ${plugins})
   target_link_libraries(${plugin} ${Boost_LIBRARIES} ${GAZEBO_LIBRARIES})
