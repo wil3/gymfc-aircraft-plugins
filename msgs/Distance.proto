@@ -4,6 +4,6 @@ package sensor_msgs.msgs;
 message Distance
 {
    required float ground_distance   = 1;
-   required int64 time_usec = 2; //compilation error when deleting
+   
 }
 
